@@ -1,0 +1,27 @@
+extends layout
+block head
+  style.
+    body{
+      background:#555;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top:5%;
+    }
+block content
+  div.container.center-align.orange
+    div
+      br
+      a.btn.waves-effect.teal(href="/poll/createPoll" )
+        i.large.material-icons add_circle_outline
+        |  Create A Poll
+      hr
+      a.btn.waves-effect.teal(href="/poll/insertLabel" )
+        i.material-icons insert_chart
+        |  Add Labels to a Ongoing Poll
+      hr
+      a.btn.waves-effect.red.pulse(href="/poll/vote" )
+        i.large.material-icons fingerprint
+        |  Vote

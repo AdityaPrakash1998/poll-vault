@@ -1,0 +1,38 @@
+extends layout
+block head
+  style.
+    body{
+      background:#666
+    }
+    .container{
+      margin-top:auto
+    }
+    .parent {
+    display: flex;
+    height: 100%; /* Or whatever */
+    }
+
+    .child {
+      width: 50%;  /* Or whatever */
+      height: auto; /* Or whatever */
+      margin: auto;  /* Magic! */
+    }
+block content
+  br
+  .parent
+    .child.green
+      .container.white-text
+        form(action='/vote/add_vote',method="POST")
+          each label,i in labels
+            p
+              input(type='radio', class="with-gap", name="vote_to" value= label id= label)
+              label.white-text(for=label style="font-size:30px") #{label}
+          input(type="text", name="id" value= id hidden)
+          button.btn(type='submit') Vote
+    .child.orange
+      h5.white-text Descriptions
+      each description, index in descriptions
+        .card.blue-grey.darken-1
+          .card-content.white-text
+            span.card-title.cyan-text Description of Option #{index+1} 
+            p= description

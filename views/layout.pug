@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Poll-Vault
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    style.
+      body{
+        background:#000;
+      }
+      footer {
+        padding: 1em;
+        color: white;
+        background-color: black;
+        clear: left;
+        text-align: center;
+      }
+    script(src='http://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js')
+    block head
+  body
+    .container
+      if errors
+        each error,i in errors
+          div(class="teal white-text") #{error.msg}
+          hr
+    .container
+      block content
+    br
+    br
+    footer Copyright &copy; Poll-Vault
+  

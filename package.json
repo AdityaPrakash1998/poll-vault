@@ -1,0 +1,23 @@
+{
+  "name": "poll-vault",
+  "version": "1.0.0",
+  "description": "A simple polling app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "author": "Aditya Prakash",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-validator": "^5.0.1",
+    "mongodb": "^3.0.3",
+    "mongoose": "^5.0.11",
+    "nodemailer": "^4.6.3",
+    "npm": "^5.8.0",
+    "pug": "^2.0.0-rc.4",
+    "request": "^2.83.0"
+  }
+}

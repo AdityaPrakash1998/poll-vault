@@ -1,0 +1,40 @@
+extends layout
+block head
+  style.
+    body{
+      background:#666;
+    }
+    #pollChart{
+      height:400px;
+      width:400px;
+    }
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js')
+block content
+  .container
+    canvas#pollChart.white-text.white
+  script.
+    var chartElement=document.getElementById('pollChart');
+    var labels=!{JSON.stringify(poll.labels).replace(/<\//g, "<\\/")};
+    var poll=!{JSON.stringify(poll).replace(/<\//g, "<\\/")};
+    var chart=new Chart(chartElement,{
+      type:'bar',
+      data:{
+        labels: poll.labels,
+        datasets: [{
+            label: '# of Votes',
+            data: poll.votes,
+            
+        }],
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+        }
+      }
+    });
+    
+    
