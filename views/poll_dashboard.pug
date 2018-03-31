@@ -10,6 +10,10 @@ block head
     }
   script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js')
 block content
+  h3 Poll Name: #{poll.name}
+  h5 Created By: #{poll.creatorFirstName} #{poll.creatorLastName}
+  p.helper-text Created at #{poll.created}
+  hr
   .container
     canvas#pollChart.white-text.white
   script.

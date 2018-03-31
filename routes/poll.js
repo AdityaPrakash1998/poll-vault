@@ -69,7 +69,7 @@ route.post('/createPoll',function(req,res){
                   subject:'Poll-Vault',
                   text:`Greetings! Please click the button below to continue by adding labels to your poll.`,
                   html:`
-                  <a href='http://localhost:4000/poll/add_label/${poll._id}' style="background-color: #f44336;
+                  <a href='http://pollvault.localtunnel.me/poll/add_label/${poll._id}' style="background-color: #f44336;
                   color: white;
                   padding: 14px 25px;
                   text-align: center;
@@ -147,7 +147,7 @@ route.get('/vote',function(req,res){
     res.render('find_poll');
 });
 
-route.post('/find_poll',function(req,res){
+route.post('/find_poll/byid',function(req,res){
   var id=req.body.poll_id;
   Poll.findById(id,(err,poll)=>{
     if(err) console.log(err);
@@ -161,5 +161,27 @@ route.post('/find_poll',function(req,res){
   });
 });
 
+route.post('/find_poll/byname',function(req,res){
+  var name=req.body.poll_name;
+  Poll.findOne({name:name},(err,poll)=>{
+    if(err | poll==null){
+      let errors=[ { param: 'label_title[]',
+        msg: `Poll with "${name}" Name doesn't exist `,
+        value: undefined }];
+
+      res.render('find_poll',{
+        errors:errors
+      });
+    }
+    else {
+      res.render('vote',{
+        name:name,
+        labels:poll.labels,
+        descriptions:poll.descriptions,
+        id:poll._id
+      })
+    }
+  });
+});
 
 module.exports=route;

@@ -6,13 +6,22 @@ block head
     }
 block content
   br
-  h5 Please ask the Poll Creator for the POLL ID
+  h5 Please ask the Poll Creator for the POLL ID or Name
   .container.white-text.center-align
     .row.violet.darken-2
-      form.col.s12(action=`/poll/find_poll`,method='POST')
+      form.col.s12(action=`/poll/find_poll/byid`,method='POST')
         .container.teal
           .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
             .input-field.col.s8
               input#label_name.validate(name="poll_id", type='text', placeholder="Please enter the POLL ID ")
               label.black-text(for='label_title') Poll ID
-        button.btn.waves-effect.center(type='submit') Submit
+        button.btn.waves-effect.center(type='submit') Search
+      hr
+      h4.center-align OR
+      form.col.s12(action=`/poll/find_poll/byname`,method='POST')
+        .container.teal
+          .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
+            .input-field.col.s8
+              input#label_name.validate(name="poll_name", type='text', placeholder="Please enter the POLL Name ")
+              label.black-text(for='label_title') Poll Name
+        button.btn.waves-effect.center(type='submit') Search
