@@ -24,4 +24,19 @@ route.post('/add_vote',(req,res)=>{
   });
 });
 
+route.post('/found',(req,res)=>{
+  var id=req.body.id;
+  Poll.findById(id,(err,poll)=>{
+    if(err) console.log(err);
+    else{
+      res.render('vote',{
+        name:poll.name,
+        labels:poll.labels,
+        descriptions:poll.descriptions,
+        id:poll._id
+      });  
+    }
+  });
+});
+
 module.exports=route;

@@ -4,9 +4,20 @@ block head
     body{
       background:#ef6c00
     }
+    #parent{
+      display:flex;
+    }
+    #child{
+      height:auto;
+      width:auto;
+      margin:5px;
+    }
+    span{
+      display:block;
+    }
 block content
   br
-  h5 Please ask the Poll Creator for the POLL ID or Name
+  br
   .container.white-text.center-align
     .row.violet.darken-2
       form.col.s12(action=`/poll/find_poll/byid`,method='POST')
@@ -25,3 +36,15 @@ block content
               input#label_name.validate(name="poll_name", type='text', placeholder="Please enter the POLL Name ")
               label.black-text(for='label_title') Poll Name
         button.btn.waves-effect.center(type='submit') Search
+  if polls
+    .container#parent
+      each poll, index in polls
+        #child  
+          .card.blue-grey.darken-1
+            .card-content.white-text
+              span.card-title.cyan-text Title: #{poll.name} 
+              span.helper-text Created By: #{poll.creatorFirstName} #{poll.creatorLastName}
+              span.helper-text Created at: #{poll.created}  
+            form.center-align(action="/vote/found", method="POST")
+              input(type="text", name='id', value= poll._id hidden)
+              input.btn.teal.wave-effect(type="submit" value="Vote")    

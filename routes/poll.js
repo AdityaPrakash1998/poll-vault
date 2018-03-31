@@ -163,25 +163,26 @@ route.post('/find_poll/byid',function(req,res){
 
 route.post('/find_poll/byname',function(req,res){
   var name=req.body.poll_name;
-  Poll.findOne({name:name},(err,poll)=>{
-    if(err | poll==null){
+  const regex = new RegExp(escapeRegex(name), 'gi');
+  Poll.find({name:regex},(err,polls)=>{
+    if(err | polls.length==0){
       let errors=[ { param: 'label_title[]',
         msg: `Poll with "${name}" Name doesn't exist `,
         value: undefined }];
-
       res.render('find_poll',{
         errors:errors
       });
     }
     else {
-      res.render('vote',{
-        name:name,
-        labels:poll.labels,
-        descriptions:poll.descriptions,
-        id:poll._id
+      res.render('find_poll',{
+        polls:polls
       })
     }
   });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports=route;
