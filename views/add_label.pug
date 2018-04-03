@@ -8,7 +8,7 @@ block content
   br
   .container.white-text.center-align
     .row.violet.darken-2
-      form.col.s12(action=`/poll/add_label/${id}`,method='POST')
+      form.col.s12#bar(action=`/poll/add_label/${id}`,method='POST')
         .container.teal.darken-3#formcontainer
           .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
             .input-field.col.s4
@@ -17,9 +17,11 @@ block content
             .input-field.col.s8
               input#description.validate(name='label_description[]',type='text')
               label(for='description') Description of the Label
-        button.btn.waves-effect.center(type='submit') Submit
-      button.btn.waves-effect.red(onclick="addRow()") Add Another Label
-      button.btn.waves-effect.red(onclick="remove()") Delete Label
+      button.btn-floating.btn-large.waves-effect.red(onclick="addRow()") Add Another Label
+      button.btn-floating.btn-large.waves-effect.red(onclick="remove()") Delete Label
+      br
+      br
+      a.btn.waves-effect.center(href="#" id="submit_button") Submit
     script.
       function addRow() {
         var div = document.createElement('div');
@@ -46,6 +48,9 @@ block content
         elem[elem.length-1].outerHTML="";
         delete elem[elem.length-1];
       }
-      
+      function submitBarForm() {
+          document.getElementById("bar").submit();
+      }
+      document.getElementById("submit_button").onclick = submitBarForm;
     
   

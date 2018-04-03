@@ -16,17 +16,31 @@ block content
   hr
   .container
     canvas#pollChart.white-text.white
+    button.btn.waves-effect.orange(onclick="changeChart()") Change Chart Type
+  .info
   script.
     var chartElement=document.getElementById('pollChart');
     var labels=!{JSON.stringify(poll.labels).replace(/<\//g, "<\\/")};
     var poll=!{JSON.stringify(poll).replace(/<\//g, "<\\/")};
+    
+    var colors=['red','black','blue','purple','green','yellow','brown','orange'];
+    var background=[];
+    
+    for(var i=0;i<poll.labels.length;i++){
+      if(i>colors.length)
+        background.push(colors[i%8]);
+      else
+        background.push(colors[i]);
+    }
+    
     var chart=new Chart(chartElement,{
-      type:'bar',
+      type:'line',
       data:{
         labels: poll.labels,
         datasets: [{
             label: '# of Votes',
             data: poll.votes,
+            backgroundColor:background
             
         }],
         options: {
@@ -40,5 +54,46 @@ block content
         }
       }
     });
+    chartElement.style.width=window.screen.width;
+    chartElement.style.height=window.screen.width;
     
+    
+    var types=['pie','bar','line','doughnut','polarArea','radar'];
+    
+    function changeChart(){
+      var data=chart.data;
+      var index=types.indexOf(chart.config.type);
+      index=(index+1)%6;
+
+      chart.destroy();
+      chart=new Chart(chartElement,{
+        type:types[index],
+        data:data
+      });
+      chartElement.style.width=window.screen.width;
+      chartElement.style.height=window.screen.width;
+    }
+    
+    jQuery(document).ready(function($) {
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+                window.location='/';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('forward', null, './#forward');
+      }
+
+    });
     

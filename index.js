@@ -2,6 +2,7 @@ const express= require('express');
 const bodyParser=require('body-parser');
 const path=require('path');
 const validator=require('express-validator');
+const cookieParser=require('cookie-parser');
 
 //Initializing application
 const app= express();
@@ -17,6 +18,10 @@ app.use(bodyParser.json());
 
 //Loading static assets
 app.use(express.static(path.join(__dirname,'public')));
+
+//Cookie managememnt using Cookie-parser
+app.use(cookieParser());
+
 
 //Express-validator Middleware
 app.use(validator({
@@ -44,13 +49,16 @@ app.use(validator({
 
 }));
 
+//Home route
 app.get('/',function(req,res){
   res.render('index');
 });
 
+//Using pollRoute for /poll/ requests
 var pollRoute=require('./routes/poll.js');
 app.use('/poll/',pollRoute);
 
+//Using pollRoute for /vote/ requests
 var voteRoute=require('./routes/vote.js');
 app.use('/vote/',voteRoute);
 

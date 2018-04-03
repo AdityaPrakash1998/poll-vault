@@ -13,21 +13,26 @@ html
         padding: 1em;
         color: white;
         background-color: black;
-        clear: left;
         text-align: center;
+        position:fixed;
+        bottom:0;
+        width:100%;
+        margin-top:10px;
       }
     script(src='http://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
     script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js')
     block head
   body
-    .container
-      if errors
-        each error,i in errors
-          div(class="teal white-text") #{error.msg}
-          hr
-    .container
-      block content
-    br
-    br
-    footer Copyright &copy; Poll-Vault
+    #main
+      .container
+        if errors
+          each error,i in errors
+            div(class="teal white-text") #{error.msg}
+            hr
+      .container
+        block content
+      br
+      br
+    div#footer
+      footer Copyright &copy; Poll-Vault
   
