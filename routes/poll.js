@@ -16,7 +16,24 @@ route.get('/findandshow/:id',(req,res)=>{
   Poll.findById(pollID,(err,poll)=>{
     res.render('poll_dashboard',{poll:poll});
   })
-})
+});
+route.post('/findandshow',(req,res)=>{
+  var name=req.body.name;
+  Poll.findOne({name:name}, (err,poll)=>{
+    if(err) console.log(err);
+    else if(poll==null){
+      res.render('index',{
+        err1:"That Poll doesn't exist." ,
+        err2:"Maybe you misspelled it !"
+      });
+    }
+    else {
+      res.render('poll_dashboard',{
+        poll:poll
+      })
+    }
+  });
+});
 
 //Handles POST request of Create Poll form
 route.post('/createPoll',function(req,res){
@@ -72,7 +89,7 @@ route.post('/createPoll',function(req,res){
                   subject:'Poll-Vault',
                   text:`Greetings! Please click the button below to continue by adding labels to your poll.`,
                   html:`
-                  <a href='http://pollvault.localtunnel.me/poll/add_label/${poll._id}' style="background-color: #f44336;
+                  <a href='http://localhost:4000/poll/add_label/${poll._id}' style="background-color: #f44336;
                   color: white;
                   padding: 14px 25px;
                   text-align: center;
@@ -89,7 +106,7 @@ route.post('/createPoll',function(req,res){
                   res.render('mail_sent');
                 }
               });
-          }).catch(err=>console.log(err));
+          }).catch(res.render('error'));
 }
 });
 
@@ -138,7 +155,7 @@ route.post('/add_label/:id',function(req,res){
   }
   else {//Updating titles and descriptions based on form values
     Poll.findByIdAndUpdate(req.params.id,{labels:titles, descriptions:descriptions, votes:votes},{new:true},(err,poll)=>{
-      if(err) console.log(err);
+      if(err) res.render('error');
       else{
         res.render('poll_dashboard',{
           poll:poll
@@ -158,7 +175,7 @@ route.get('/vote',function(req,res){
 route.post('/find_poll/byid',function(req,res){
   var id=req.body.poll_id;
   Poll.findById(id,(err,poll)=>{
-    if(err) console.log(err);
+    if(err) res.render('error');
     else {
       res.render('vote',{
         labels:poll.labels,

@@ -1,0 +1,56 @@
+extends layout
+block head
+  style.
+    *{
+      background:#d32f2f;
+      box-sizing:border-box;
+    }
+    p{
+      font-size:4em;
+    }
+    p:first-child{
+      font-size:6em;
+      border:10px black dashed;
+    }
+    .valign-wrapper{
+      align-content:center;
+      display:block;
+      align-items:center;
+    }
+    a{
+      align:center;
+      margin-left:45%;
+    }
+block content
+  .valign-wrapper
+    p.center-align.white-text Oops!
+    p.white-text.center-align We messed up!
+    h5.center-align.white-text Head back home till we fix this !
+    a.btn.center-align.btn-large.waves-effect-light.waves-effect.white.black-text(href="/")
+      | #[i.white.material-icons home]
+  script.
+    jQuery(document).ready(function($) {
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+                window.location='/';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('forward', null, './#forward');
+      }
+
+    });
+  
+
+  

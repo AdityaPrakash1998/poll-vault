@@ -19,20 +19,32 @@ html
         width:100%;
         margin-top:10px;
       }
-    script(src='http://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
-    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js')
+      #b{
+        visibility:hidden;
+      }
     block head
   body
-    #main
-      .container
-        if errors
-          each error,i in errors
-            div(class="teal white-text") #{error.msg}
-            hr
+    #main(syle="position:relative")
+      if errors
+        .modal#modal1
+          .modal-content
+            each error,i in errors
+              p.red-text #{error.msg}
+              hr
+          .modal-footer(style="display:flex")
+            a.modal-close.modal-action.waves-effect.waves-red.btn-flat Close
+        button#b(data-target="modal1" class="modal-trigger btn") Modal
       .container
         block content
       br
       br
     div#footer
       footer Copyright &copy; Poll-Vault
+    script(src='http://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js')
+    script.
+      $(document).ready(function(){
+        $('.modal').modal();
+        $('.modal').modal('open');
+      });
   

@@ -2,7 +2,7 @@ extends layout
 block head
   style.
     body{
-      background:#ef6c00
+      background:#ff9100;
     }
     #parent{
       display:inline-block;
@@ -20,21 +20,22 @@ block content
   br
   .container.white-text.center-align
     .row.violet.darken-2
-      form.col.s12(action=`/poll/find_poll/byid`,method='POST')
-        .container.teal
-          .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
-            .input-field.col.s8
-              input#label_name.validate(name="poll_id", type='text', placeholder="Please enter the POLL ID ")
-              label.black-text(for='label_title') Poll ID
-        button.btn.waves-effect.center(type='submit') Search
-      hr
-      h4.center-align OR
       form.col.s12(action=`/poll/find_poll/byname`,method='POST')
         .container.teal
           .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
             .input-field.col.s8
               input#label_name.validate(name="poll_name", type='text', placeholder="Please enter the POLL Name ")
               label.black-text(for='label_title') Poll Name
+        button.btn.waves-effect.center(type='submit') Search
+        br
+      hr
+      h4.center-align OR
+      form.col.s12(action=`/poll/find_poll/byid`,method='POST')
+        .container.teal
+          .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
+            .input-field.col.s8
+              input#label_name.validate(name="poll_id", type='text', placeholder="Please enter the POLL ID " autocomplete="off")
+              label.black-text(for='label_title') Poll ID
         button.btn.waves-effect.center(type='submit') Search
   if polls
     .container#parent
@@ -47,4 +48,27 @@ block content
               span.helper-text Created at: #{poll.created}  
             form.center-align(action="/vote/found", method="POST")
               input(type="text", name='id', value= poll._id hidden)
-              input.btn.teal.wave-effect(type="submit" value="Vote")    
+              input.btn.teal.wave-effect(type="submit" value="Vote")
+  script.
+    jQuery(document).ready(function($) {
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+                window.location='/';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('forward', null, './#forward');
+      }
+
+    });    

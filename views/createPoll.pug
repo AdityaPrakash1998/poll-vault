@@ -2,37 +2,39 @@ extends layout
 block head
   style.
     body{
-      background:#ef6c00;
+      background:#ff9100;
     }
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css')
 block content
   .container.white-text
     .row.violet.darken-2
       form.col.s12(action='/poll/createPoll',method='POST')
         .row
           .input-field.col.s6
-            input#first_name.validate(placeholder='First Name',name="first_name", type='text')
+            input#first_name.validate(placeholder='First Name',name="first_name", type='text' autocomplete="off")
             label(for='first_name') First Name
           .input-field.col.s6
-            input#last_name.validate(type='text',placeholder='Last Name', name='last_name')
+            input#last_name.validate(type='text',placeholder='Last Name', name='last_name' autocomplete="off")
             label(for='last_name') Last Name
         .row
           .input-field.col.s12
-            input#name.validate(name="poll_name", type='text')
+            input#name.validate(name="poll_name", type='text' autocomplete="off")
             label(for='name') Name of the Poll
         .row
           .input-field.col.s12
-            textarea#description.materialize-textarea.validate(name='description',type='text')
+            textarea#description.materialize-textarea.validate(name='description',type='text' autocomplete="off")
             label(for='description') Description of the Poll
         .row
           .col.s12
             | Please enter your E-mail address to continue:
             .input-field.inline
-              input#email.validate(name='email',type='email')
+              input#email.validate(name='email',type='email' autocomplete="off")
               label(for='email', data-error='Invalid Email', data-success='Continue') Email
         .row
           .col.s12
             | Please enter your Mobile Number to continue:
             .input-field.inline
-              input#phone.validate(name='phone',type='number')
+              input#phone.validate(name='phone',type='number' autocomplete="off")
               label(for='phone', data-error='Invalid Mobile', data-success='Continue') Mobile Number
         button.btn.waves-effect(type='submit') Submit
+        
