@@ -1,0 +1,23 @@
+extends layout
+block head
+  style.
+    body{
+      background:#ff9100;
+    }
+    .container{
+      margin-top:30vh;
+    }
+    form{
+      border:1px solid #000000;
+      margin:2px 2px;
+    }
+block content
+  .container
+    form.red.s12.center-align(action="/poll/insertLabel" method="POST")
+      .input-field
+        input(type="text" placeholder="Enter Provided ID" name="id" id="id" autocomplete="off")
+        label(for="id") ID
+      .input-field
+        input(type="text" placeholder="Enter Provided Secret" name="secret" id="secret" autocomplete="off")
+        label(for="secret") Secret
+      input.btn.waves-effect.waves-green.green(type="submit" value="Submit")

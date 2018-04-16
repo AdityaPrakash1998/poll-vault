@@ -17,7 +17,10 @@ block content
   .container
     canvas#pollChart.white-text.white
     button.btn.waves-effect.orange(onclick="changeChart()") Change Chart Type
-  .info
+  br
+  .info.center-align
+    if fromIndexPage==true
+      a.btn.waves-effect.red.darken-3.waves-effect-light(href="/poll/vote") Vote for this Poll
   script.
     var chartElement=document.getElementById('pollChart');
     var labels=!{JSON.stringify(poll.labels).replace(/<\//g, "<\\/")};

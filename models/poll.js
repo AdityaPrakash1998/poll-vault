@@ -10,7 +10,8 @@ const PollSchema= new Schema({
   labels:[String],
   descriptions:[String],
   votes:[Number],
-  created: { type: Date, default: Date.now }
+  created: { type: Date, default: Date.now },
+  hash:String
 });
 //Create collection
 const Poll=mongoose.model('Poll',PollSchema);

@@ -1,0 +1,78 @@
+extends layout
+block head
+  style.
+    body{
+      background:#ef6c00;
+    }
+block content
+  br
+  .container.white-text.center-align
+    .row.violet.darken-2
+      form.col.s12#bar(action=`/poll/add_label_edit/${id}`,method='POST')
+        .container.teal.darken-3#formcontainer
+          .row.z-depth-5(style="border:red solid; border-width:0px 1px 2px 1px ")
+            .input-field.col.s4
+              input#label_name.validate(name="label_title[]", type='text')
+              label(for='label_title') Label Title
+            .input-field.col.s8
+              input#description.validate(name='label_description[]',type='text')
+              label(for='description') Description of the Label
+      button.btn-floating.btn-large.waves-effect.red(onclick="addRow()") Add Another Label
+      button.btn-floating.btn-large.waves-effect.red(onclick="remove()") Delete Label
+      br
+      br
+      a.btn.waves-effect.center(href="#" id="submit_button") Submit
+    script.
+      function addRow() {
+        var div = document.createElement('div');
+
+        div.className = 'row z-depth-5';
+        div.style="border:red solid; border-width:0px 1px 2px 1px ";
+
+        div.innerHTML =
+            '<div class="input-field col s4">\
+            <input class="validate" id="label_name" type="text" name="label_title[]" />\
+            <label for="label_title"> Label Title</label>\
+            </div>\
+            <div class="input-field col s8">\
+            <input class="validate" id="description" type="text" name="label_description[]" />\
+            <label for="description"> Description of the Label</label>\
+            </div>\
+            ';
+
+        document.getElementById('formcontainer').appendChild(div);
+      }
+      
+      function remove(){
+        var elem=document.querySelectorAll('.z-depth-5');
+        elem[elem.length-1].outerHTML="";
+        delete elem[elem.length-1];
+      }
+      function submitBarForm() {
+          document.getElementById("bar").submit();
+      }
+      document.getElementById("submit_button").onclick = submitBarForm;
+      jQuery(document).ready(function($) {
+  
+        if (window.history && window.history.pushState) {
+  
+          $(window).on('popstate', function() {
+            var hashLocation = location.hash;
+            var hashSplit = hashLocation.split("#!/");
+            var hashName = hashSplit[1];
+  
+            if (hashName !== '') {
+              var hash = window.location.hash;
+              if (hash === '') {
+                  window.location='/';
+                  return false;
+              }
+            }
+          });
+  
+          window.history.pushState('forward', null, './#forward');
+        }
+  
+      });
+    
+  

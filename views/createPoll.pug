@@ -8,7 +8,7 @@ block head
 block content
   .container.white-text
     .row.violet.darken-2
-      form.col.s12(action='/poll/createPoll',method='POST')
+      form.col.s12.red(action='/poll/createPoll',method='POST')
         .row
           .input-field.col.s6
             input#first_name.validate(placeholder='First Name',name="first_name", type='text' autocomplete="off")
